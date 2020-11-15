@@ -1,0 +1,211 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    /* background: #FAFAFA; */
+    background: #e9ecef;
+    overflow-x: hidden !important;
+}
+
+.navbar {
+    height: 50px !important;
+}
+
+.navbar-brand {
+    font-size: 19px;
+}
+
+.hr-top {
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.right {
+    float: right;
+}
+
+input {
+    border-radius: 0px !important;
+}
+
+button {
+    border-radius: 0px !important;
+}
+
+.btn {
+    border-radius: 0px !important;
+}
+
+.fas-div {
+  border-radius: 0px !important;
+}
+
+select {
+  border-radius: 0px !important;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+  }
+  
+  table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+  
+  table th {
+    font-size: .85em;
+    /* letter-spacing: .1em;
+    text-transform: uppercase; */
+  }
+  
+  @media screen and (max-width: 700px) {
+    table {
+      border: 0;
+    }
+  
+    table caption {
+      font-size: 1.3em;
+    }
+    
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    
+    table td::before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      /* font-weight: bold; */
+      text-transform: uppercase;
+    }
+    
+    table td:last-child {
+      border-bottom: 0;
+    }
+  }
+
+.add-row-btn {
+    width: 100%;
+    padding-left: 0 !important;
+}
+
+.add-row-div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 220px; 
+    float: left; 
+    margin-bottom: 2px;
+}
+
+.search-div {
+    width: 380px; 
+    float: right; 
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+.cell-breakWord {
+    word-wrap: break-word;
+}
+
+ @media screen and (max-width: 620px) {
+    /* .navbar { , navbar-dark, bg-dark */
+
+    .add-row-div {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100%; 
+        float: left; 
+        margin-bottom: 2px;
+    }
+
+    .search-div {
+        width: 100%; 
+        float: right; 
+        text-align: right;
+    }
+ }
+
+ .image-preview {
+    width: 100%; 
+    height: 50%;
+ }
+
+.login-page {
+    justify-content: normal !important;
+}
+
+.login-box {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 10% !important;
+}
+
+.main-header {
+    transition: margin-left .3s ease-in-out;
+    margin-left: 0 !important;
+}
+
+.card-header {
+    height: 55px !important;
+}
+
+.btn-no-padding {
+    padding: 0px !important;
+    padding-right: 10px !important;
+}
+
+.login-box-msg {
+    font-size: 1.4rem; 
+    font-weight: 300;
+}
+
+.pagination > li > a
+{
+    background-color: white;
+    color: #5A4181;
+}

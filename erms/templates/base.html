@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {% load static %}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'admin_lte/fontawesome-free/css/all.min.css' %}?{% now 'U' %}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{% static 'admin_lte/icheck-bootstrap/icheck-bootstrap.min.css' %}?{% now 'U' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'admin_lte/css/adminlte.min.css' %}?{% now 'U' %}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bases.css' %}?{% now 'U' %}">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
+        <a href="/hr/" class="navbar-brand">
+            <span class="brand-text font-weight-light">HR System</span>
+        </a>
+        <ul class="navbar-nav navbar-no-expand ml-auto">
+            <li class="nav-item dropdown">
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{ request.user.username }}</a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow dropdown-menu-right">
+                    <li><a href="{% url 'logout' %}" class="dropdown-item">Log out</a></li>
+                    
+                </ul>
+            </li>
+        </ul>
+    </nav>
+        <div class="main-div" style="padding-bottom: 50px;">
+            {% block content %}
+            {% endblock %}
+        </div>
+</body>
+</html>

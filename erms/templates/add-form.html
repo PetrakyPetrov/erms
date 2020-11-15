@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form method="post" runat="server" role="form" class="col-md-12">
+            {% csrf_token %}
+            <div class="col-md-6" style="margin-top: 20px; float: left;">
+                <div class="card card-default fas-div">
+                    <div class="card-header">
+                        <h4 class="brand-text font-weight-light text-center">{{ formName }}</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ form.as_p}}
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button id="cancel" class="btn btn-danger right">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-top: 20px; float: left;">
+                <div class="card card-default fas-div">
+                    <div class="card-header">
+                        <h4 class="brand-text font-weight-light text-center">Comments</h4>
+                    </div>
+                    <div class="card-body comments">
+                        {% if relatedComments %}
+                            {% for comment in relatedComments %}
+                                <br>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" value="{{ comment }}">
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <span class="input-group-sm">
+                            <button type="button" class="btn btn-success btn-flat add-comment">Add</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function() {
+        $("#cancel").click(function(e){
+            if (confirm("Are you sure you want to leave the page?")) {
+                window.location.replace("/hr/");
+            } 
+            return false;
+        });
+        $(".add-comment").click(function(e){
+            var txt1 = "<br><div class='input-group'><input type='text' class='form-control'></div>";
+            $(".comments").append(txt1);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="hr-top">
+        <div style="width: 100%;height: 40px;">
+            <div class="add-row-div">
+                {% if perms.hr.add %}
+                    <a href="/hr/add" class="btn btn-success add-row-btn ">Add employee</a>
+                {% endif %}
+            </div>
+            <!-- SEARCH FORM -->
+            <div class="search-div">
+                <form class="form-inline ml-0 ml-md-3" method="get" action="/hr/">
+                    <div class="input-group input-group-sm" style="width: 100%;height: 39px;">
+                        <input style="height: 39px;" class="form-control form-control-navbar" type="search" name="search"
+                        placeholder="Search" aria-label="Search" value="{{ searchWord }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="table-responsive-sm" >
+            {% if employees %}
+                <table class="table table-bordered table-hover dataTable dtr-inline text-nowrap" style="margin-top: 10px;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Date Started</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Job Title</th>
+                            <th scope="col">Salary</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Manager</th>
+                            <th scope="col">Address</th>
+                            {% if perms.hr.edit or perms.hr.delete %}
+                                <th scope="col">Options</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% load tz %}
+                        {% for employee in employees %}
+                            <tr>
+                                <td class="cell-breakWord" data-label="Date Created">{{ employee.created_at|date:"d M Y" }}</td>
+                                <td class="cell-breakWord" data-label="Name">{{ employee.name }}</td>
+                                <td class="cell-breakWord" data-label="Job Title">{{ employee.job_position_id.name }}</td>
+                                <td class="cell-breakWord" data-label="Salary">{{ employee.salary }} {{ employee.get_salary_type }}</td>
+                                <td class="cell-breakWord" data-label="Department">{{ employee.department_id.name }}</td>
+                                <td class="cell-breakWord" data-label="Manager">{{ employee.manager_id.name }}</td>
+                                <td class="cell-breakWord" data-label="Address">{{ employee.address }}</td>
+                                {% if perms.hr.edit or perms.hr.delete %}
+                                    <td data-label="Опции">
+                                        {% if perms.hr.edit %}
+                                            <a href="{% url 'edit-employee' employee.id %}" class="btn btn-no-padding"><i class="fas fa-pencil-alt"></i></a>
+                                        {% endif %}
+                                        {% if perms.hr.delete %}
+                                            <a href="{% url 'delete-employee' employee.id %}" class="btn btn-no-padding delete-row"><i class="fas fa-trash"></i></a>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                {% if searchWord != "" %}
+                    <p style="margin-top: 30px; text-align: center;">No employees found with this search term: <b>"{{ searchWord}}"</b>.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div>
+            <nav aria-label="Page navigation example">
+                {% if employees.has_other_pages %}
+                <ul class="pagination pagination-sm">
+                    {% if employees.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?search={{ searchWord }}&page={{ employees.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span class="page-link">&laquo;</span></li>
+                    {% endif %}
+                    {% for i in employees.paginator.page_range %}
+                    {% if employees.number == i %}
+                        <li class="active"><span class="page-link"><b>{{ i }}</b> <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?search={{ searchWord }}&page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if employees.has_next %}
+                    <li class="page-item"><a class="page-link" href="?search={{ searchWord }}&page={{ employees.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span class="page-link">&raquo;</span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+    <script>
+        $(function() {
+            $(".delete-row").click(function(e){
+                if (confirm("Are you sure you want to delete this record?")) {
+                    return true;
+                } 
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
