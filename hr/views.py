@@ -35,17 +35,25 @@ def index(request):
     except EmptyPage:
         employees = paginator.page(paginator.num_pages)
 
-    return render(request, 'hr-index.html', {'employees': employees, 'searchWord': searchWord})
+    return render(request, 'index.html', {'employees': employees, 'searchWord': searchWord})
 
 
 @login_required(login_url='/auth/login/')
 @permission_required('hr.add', raise_exception=True)
 def createEmployee(request):
 
-    form = EmployeeForm(request.POST or None)
+    req = request.POST
+    form = EmployeeForm(req or None)
     relatedComments = []
     if form.is_valid():
-        form.save()
+        newEmployeeInstance = form.save()
+        commentsList = req.getlist("comments[]", None)
+        if commentsList:
+            for comment in commentsList:
+                comment = comment.strip()
+                if len(comment) != 0:
+                    cInstance = Comment(content=comment, author=request.user, employee_id=newEmployeeInstance)
+                    cInstance.save()
         return redirect(index)
 
     return render(request, 'add-form.html', {
@@ -60,10 +68,18 @@ def createEmployee(request):
 def updateEmployee(request, id):
 
     employee = Employee.objects.get(id=id)
+    req = request.POST
     relatedComments = Comment.objects.filter(employee_id=id)
-    form = EmployeeForm(request.POST or None, instance=employee)
+    form = EmployeeForm(req or None, instance=employee)
     if form.is_valid():
         form.save()
+        commentsList = req.getlist("comments[]", None)
+        Comment.objects.filter(employee_id=id).delete()
+        for comment in commentsList:
+            comment = comment.strip()
+            if len(comment) != 0:
+                cInstance = Comment(content=comment, author=request.user, employee_id=employee)
+                cInstance.save()
         return redirect(index)
 
     return render(request, 'add-form.html', {
@@ -75,10 +91,7 @@ def updateEmployee(request, id):
 @login_required(login_url='/auth/login/')
 @permission_required('hr.delete', raise_exception=True)
 def deleteEmployee(request, id):
-
     contact = Employee.objects.get(id=id)
     if request.method == 'GET':
         contact.delete()
-        return redirect(index)
-
-    return render(request, 'list-contacts.html', {'form': 1})
+    return redirect(index)

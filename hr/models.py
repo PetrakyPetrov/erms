@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
+import django
 
 
 class Comment(models.Model):
@@ -47,7 +48,7 @@ class Employee(models.Model):
     salary_type = models.CharField(max_length=1, choices=SALARY_TYPES)
     address = models.CharField(max_length=255, blank=False, default="")
     comment_id = models.ForeignKey('Comment', on_delete=models.DO_NOTHING, null=True, blank=True, default=None)
-    created_at = models.DateTimeField(null=True, blank=True, default=datetime.now())
+    created_at = models.DateField(null=True, blank=True, default=django.utils.timezone.now)
 
     class Meta:
         permissions = (

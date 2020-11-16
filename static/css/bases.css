@@ -48,13 +48,13 @@ select {
 }
 
 table {
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
-  }
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
   
   table caption {
     font-size: 1.5em;
@@ -72,7 +72,7 @@ table {
     padding: .625em;
     text-align: center;
   }
-  
+
   table th {
     font-size: .85em;
     /* letter-spacing: .1em;
@@ -204,8 +204,34 @@ table {
     font-weight: 300;
 }
 
-.pagination > li > a
-{
+.pagination > li > a {
     background-color: white;
     color: #5A4181;
 }
+
+.mt-20 {
+    margin-top: 20px !important;
+}
+
+.mt-10 {
+  margin-top: 10px !important;
+}
+
+.result-text{
+    margin-top: 30px !important; text-align: center !important;
+}
+
+.srch-div {
+    width: 100% !important;
+    height: 39px !important;
+}
+
+.srch-inpt {
+    height: 39px !important;
+}
+
+.hrtp-child {
+    width: 100% !important;
+    height: 40px !important;
+}
+

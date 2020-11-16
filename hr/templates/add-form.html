@@ -2,9 +2,9 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <form method="post" runat="server" role="form" class="col-md-12">
+        <form method="post" runat="server" role="form" class="col-md-12 mt-20">
             {% csrf_token %}
-            <div class="col-md-6" style="margin-top: 20px; float: left;">
+            <div class="col-md-6 float-left">
                 <div class="card card-default fas-div">
                     <div class="card-header">
                         <h4 class="brand-text font-weight-light text-center">{{ formName }}</h4>
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" style="margin-top: 20px; float: left;">
+            <div class="col-md-6 float-left">
                 <div class="card card-default fas-div">
                     <div class="card-header">
                         <h4 class="brand-text font-weight-light text-center">Comments</h4>
@@ -25,13 +25,25 @@
                         {% if relatedComments %}
                             {% for comment in relatedComments %}
                                 <br>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" value="{{ comment }}">
+                                <div>
+                                    <div class="input-group">
+                                        <input type="text" name="comments[]" class="form-control" value="{{ comment.content }}">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-danger remove-comment">Remove</button>
+                                        </div>
+                                    </div>
+                                    <span class="text-gray">author: {{ comment.author }} ({{ comment.created_at }})</span>
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <div class="input-group">
-                                <input type="text" class="form-control">
+                            <div>   
+                                <br>
+                                <div class="input-group">
+                                    <input type="text" name="comments[]" class="form-control">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-danger remove-comment">Remove</button>
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     </div>
@@ -45,18 +57,4 @@
         </form>
     </div>
 </div>
-<script>
-    $(function() {
-        $("#cancel").click(function(e){
-            if (confirm("Are you sure you want to leave the page?")) {
-                window.location.replace("/hr/");
-            } 
-            return false;
-        });
-        $(".add-comment").click(function(e){
-            var txt1 = "<br><div class='input-group'><input type='text' class='form-control'></div>";
-            $(".comments").append(txt1);
-        });
-    });
-</script>
 {% endblock %}

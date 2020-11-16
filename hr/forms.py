@@ -35,23 +35,25 @@ class EmployeeForm(forms.ModelForm):
     )
     salary = forms.FloatField(
         label='* Salary',
-        required=False,
+        required=True,
         max_value=10000,
         min_value=0,
         widget=forms.NumberInput(attrs={'class': 'form-control', 'step': "0.01"})
     )
     salary_type = forms.ChoiceField(
-        label='Salary Type', choices=SALARY_TYPES, widget=forms.Select(attrs={'class': 'form-control'}), 
+        label='* Salary Type', choices=SALARY_TYPES, widget=forms.Select(attrs={'class': 'form-control'}), 
         required=True
     )
     address = forms.CharField(
-        label='Address',
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='* Address',
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=True
     )
-    created_at = forms.DateTimeField(
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+    created_at = forms.DateField(
+        label='* Date Started',
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         required=True,
-        initial=datetime.now()
+        initial=datetime.now().date()
     )
 
     class Meta:
