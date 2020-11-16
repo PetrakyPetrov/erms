@@ -16,9 +16,6 @@ Including another URLconf
 import auth
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-# from django.contrib.auth.decorators import login_required
 admin.site.site_header = 'ERMS administration'
 
 urlpatterns = [
@@ -27,4 +24,4 @@ urlpatterns = [
     path('auth/login/', auth.views.login_user),
     path('auth/logout/', auth.views.logout_user, name='logout'),
     path('hr/', include('hr.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

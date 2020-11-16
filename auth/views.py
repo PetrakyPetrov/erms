@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 
 def login_user(request):
 
-    # logout(request)
+    logout(request)
     invalid = False
     if request.POST:
         username = request.POST['username']
@@ -15,7 +15,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/hr/')
+                return HttpResponseRedirect('/hr')
         else:
             invalid = True
     return render(request, 'login.html', {'invalid': invalid})
@@ -23,7 +23,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect('/auth/login/')
+    return HttpResponseRedirect('/auth/login')
 
 
 def login_admin(request):
@@ -31,4 +31,4 @@ def login_admin(request):
 
 
 def ll_required():
-    return redirect('/auth/login/')
+    return redirect('/auth/login')
